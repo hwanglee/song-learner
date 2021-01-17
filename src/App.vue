@@ -1,17 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <b-container fluid id="app">
+    <file-picker />
+    <controls-section title="Loop">
+      <loop-controls />
+    </controls-section>
+    <controls-section title="Speed">
+      <speed-controls />
+    </controls-section>
+    <controls-section title="Position">
+      <position-controls />
+    </controls-section>
+    <controls-section title="Playback">
+      <playback-controls />
+    </controls-section>
+  </b-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
+import FilePicker from "./components/FilePicker.vue";
+import LoopControls from "./components/controls/LoopControls.vue";
+import SpeedControls from "./components/controls/SpeedControls.vue";
+import ControlsSection from "./components/controls/ControlsSection.vue";
+import PositionControls from "./components/controls/PositionControls.vue";
+import PlaybackControls from "./components/controls/PlaybackControls.vue";
 
 @Component({
   components: {
-    HelloWorld
+    FilePicker,
+    LoopControls,
+    SpeedControls,
+    PositionControls,
+    PlaybackControls,
+    ControlsSection
   }
 })
 export default class App extends Vue {}
