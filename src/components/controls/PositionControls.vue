@@ -1,13 +1,13 @@
 <template>
   <b-row>
     <b-col>
-      <b-button>Loop Start</b-button>
+      <b-button size="lg">Loop Start</b-button>
     </b-col>
     <b-col>
-      <b-button>-5 sec</b-button>
+      <b-button size="lg">-5 sec</b-button>
     </b-col>
     <b-col>
-      <b-button>+5 sec</b-button>
+      <b-button size="lg">+5 sec</b-button>
     </b-col>
   </b-row>
 </template>

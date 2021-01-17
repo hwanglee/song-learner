@@ -93,8 +93,4 @@ li {
 a {
   color: #42b983;
 }
-
-#filepicker {
-  background-color: blueviolet;
-}
 </style>

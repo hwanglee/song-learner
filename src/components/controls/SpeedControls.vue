@@ -1,13 +1,13 @@
 <template>
   <b-row>
     <b-col>
-      <b-button>0.5x</b-button>
+      <b-button size="lg">0.5x</b-button>
     </b-col>
     <b-col>
-      <b-button>0.75x</b-button>
+      <b-button size="lg">0.75x</b-button>
     </b-col>
     <b-col>
-      <b-button>1x</b-button>
+      <b-button size="lg">1x</b-button>
     </b-col>
   </b-row>
 </template>

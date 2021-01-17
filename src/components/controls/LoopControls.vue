@@ -2,7 +2,7 @@
   <b-row align-v="center">
     <b-col>
       <b-form-checkbox switch id="loop-checkbox" name="loop-checkbox" size="lg">
-        Test
+        On
       </b-form-checkbox>
     </b-col>
     <b-col>

@@ -1,18 +1,24 @@
 <template>
   <b-container fluid id="app">
-    <file-picker />
-    <controls-section title="Loop">
-      <loop-controls />
-    </controls-section>
-    <controls-section title="Speed">
-      <speed-controls />
-    </controls-section>
-    <controls-section title="Position">
-      <position-controls />
-    </controls-section>
-    <controls-section title="Playback">
-      <playback-controls />
-    </controls-section>
+    <b-row>
+      <b-col align-self="center">
+        <file-picker />
+      </b-col>
+      <b-col align-self="center">
+        <controls-section title="Loop">
+          <loop-controls />
+        </controls-section>
+        <controls-section title="Speed">
+          <speed-controls />
+        </controls-section>
+        <controls-section title="Position">
+          <position-controls />
+        </controls-section>
+        <controls-section title="Playback">
+          <playback-controls />
+        </controls-section>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -46,5 +52,7 @@ export default class App extends Vue {}
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 </style>

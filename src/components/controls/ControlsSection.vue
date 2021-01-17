@@ -1,6 +1,6 @@
 <template>
   <div class="padded">
-    <h3>{{ title }}</h3>
+    <h5>{{ title }}</h5>
     <slot />
   </div>
 </template>
