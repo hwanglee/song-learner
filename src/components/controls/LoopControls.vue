@@ -9,7 +9,7 @@
       <b-input-group prepend="Start" class="mt-3">
         <b-form-input></b-form-input>
         <b-input-group-append>
-          <b-button>Now</b-button>
+          <b-button size="sm">Now</b-button>
         </b-input-group-append>
       </b-input-group>
     </b-col>
@@ -17,7 +17,7 @@
       <b-input-group prepend="End" class="mt-3">
         <b-form-input></b-form-input>
         <b-input-group-append>
-          <b-button>Now</b-button>
+          <b-button size="sm">Now</b-button>
         </b-input-group-append>
       </b-input-group>
     </b-col>

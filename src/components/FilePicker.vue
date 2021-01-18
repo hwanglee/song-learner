@@ -14,44 +14,49 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Howl } from "howler";
+import { getModule } from "vuex-module-decorators";
+import AudioPlayer from "../store/modules/audio-player";
 
 @Component
 export default class FilePicker extends Vue {
   private title = "Please choose a song";
+  private audioPlayerModule = getModule(AudioPlayer, this.$store);
+  private howl?: Howl;
+
+  created() {
+    this.$store.watch(
+      (state, getters) => getters.playing,
+      (newValue, oldValue) => {
+        if (newValue == false) {
+          this.howl?.pause();
+        } else {
+          this.howl?.play();
+        }
+      }
+    );
+  }
 
   private inputChangeHandler(event: Event) {
     const target = event.target as HTMLInputElement;
     const file = (target.files as FileList)[0];
 
-    this.howlFromFile(file, howl => {
-      howl.play();
-    });
+    this.handleFile(file);
   }
 
   private dropLinkHandler(event: DragEvent) {
     event.preventDefault();
 
     if (event.dataTransfer?.items.length == 1) {
-      for (const item in event.dataTransfer?.items) {
-        if (
-          Object.prototype.hasOwnProperty.call(event.dataTransfer?.items, item)
-        ) {
-          const element = event.dataTransfer?.items[item];
+      const element = event.dataTransfer?.items[0];
 
-          if (element.type == "audio/mpeg") {
-            const file = element.getAsFile();
-            console.log("TEST");
-            if (file) {
-              this.howlFromFile(file, howl => {
-                console.log("test");
-                howl.play();
-              });
-            }
-          }
+      if (element.type == "audio/mpeg") {
+        const file = element.getAsFile();
+        if (file) {
+          this.handleFile(file);
         }
+      } else {
+        alert("Please only drop 1 file");
       }
-    } else {
-      alert("Please only drop 1 file");
     }
   }
 
@@ -59,18 +64,20 @@ export default class FilePicker extends Vue {
     event.preventDefault();
   }
 
-  private howlFromFile(file: File, completion: (howl: Howl) => void) {
+  private handleFile(file: File) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       const base64data = reader.result;
 
       if (base64data) {
-        const howl = new Howl({
+        this.howl = new Howl({
           src: [base64data?.toString()]
         });
 
-        completion(howl);
+        this.audioPlayerModule.setSource(base64data?.toString());
+
+        this.howl.play();
       }
     };
   }

@@ -1,10 +1,10 @@
 <template>
   <b-container fluid id="app">
     <b-row>
-      <b-col align-self="center">
+      <b-col align-self="center" cols="5">
         <file-picker />
       </b-col>
-      <b-col align-self="center">
+      <b-col align-self="center" cols="7">
         <controls-section title="Loop">
           <loop-controls />
         </controls-section>
@@ -52,7 +52,7 @@ export default class App extends Vue {}
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 </style>

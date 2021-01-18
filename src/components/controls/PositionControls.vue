@@ -1,13 +1,7 @@
 <template>
   <b-row>
-    <b-col>
-      <b-button size="lg">Loop Start</b-button>
-    </b-col>
-    <b-col>
-      <b-button size="lg">-5 sec</b-button>
-    </b-col>
-    <b-col>
-      <b-button size="lg">+5 sec</b-button>
+    <b-col v-for="(btn, index) in buttons" :key="index">
+      <b-button :key="index">{{ btn.caption }}</b-button>
     </b-col>
   </b-row>
 </template>
@@ -17,6 +11,12 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class PositionControls extends Vue {
+  private buttons = [
+    { caption: "Loop Start" },
+    { caption: "- 5 sec" },
+    { caption: "+5 sec" }
+  ];
+
   private test() {
     console.log("test");
   }
