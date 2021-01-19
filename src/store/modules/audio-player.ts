@@ -5,11 +5,11 @@ export default class AudioPlayerModule extends VuexModule {
   src = "";
   playbackSpeed = 1.0;
   isPlaying = false;
+  seek = 0;
 
   @Mutation
   public setSource(source: string) {
     this.src = source;
-    this.isPlaying = true;
   }
 
   @Mutation
@@ -20,6 +20,11 @@ export default class AudioPlayerModule extends VuexModule {
   @Mutation
   public setIsPlaying(isPlaying: boolean) {
     this.isPlaying = isPlaying;
+  }
+
+  @Mutation
+  public setSeek(seek: number) {
+    this.seek = seek;
   }
 
   @Action
@@ -37,7 +42,8 @@ export default class AudioPlayerModule extends VuexModule {
     this.context.commit("setIsPlaying", isPlaying);
   }
 
-  get playing() {
-    return this.isPlaying;
+  @Action
+  public updateSeek(seek: number) {
+    this.context.commit("setSeek", seek);
   }
 }

@@ -20,8 +20,8 @@ export default class PlaybackControls extends Vue {
 
   created() {
     this.$store.watch(
-      (state, getters) => getters.playing,
-      (newValue, oldValue) => {
+      state => state.audioPlayer.isPlaying,
+      newValue => {
         if (this.audioPlayerModule.src != "") {
           this.isPlaying = newValue;
         }

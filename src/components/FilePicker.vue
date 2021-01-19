@@ -22,18 +22,33 @@ export default class FilePicker extends Vue {
   private title = "Please choose a song";
   private audioPlayerModule = getModule(AudioPlayer, this.$store);
   private howl?: Howl;
+  private firstLoad = false;
 
   created() {
     this.$store.watch(
-      (state, getters) => getters.playing,
-      (newValue, oldValue) => {
-        if (newValue == false) {
+      state => state.audioPlayer.isPlaying,
+      value => {
+        if (value == false) {
           this.howl?.pause();
         } else {
           this.howl?.play();
         }
       }
     );
+
+    this.$store.watch(
+      state => state.audioPlayer.playbackSpeed,
+      value => {
+        this.howl?.rate(value);
+      }
+    );
+
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === "setSeek") {
+        const seek = this.howl?.seek() + state.audioPlayer.seek;
+        this.howl?.seek(seek);
+      }
+    });
   }
 
   private inputChangeHandler(event: Event) {
@@ -76,7 +91,8 @@ export default class FilePicker extends Vue {
         });
 
         this.audioPlayerModule.setSource(base64data?.toString());
-
+        this.audioPlayerModule.setIsPlaying(true);
+        this.howl.rate(this.audioPlayerModule.playbackSpeed);
         this.howl.play();
       }
     };
