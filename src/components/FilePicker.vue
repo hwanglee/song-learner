@@ -8,12 +8,12 @@
       accept="mp3"
       @change="inputChangeHandler"
     />
+    <b-media></b-media>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { Howl } from "howler";
 import { getModule } from "vuex-module-decorators";
 import AudioPlayer from "../store/modules/audio-player";
 
@@ -21,17 +21,17 @@ import AudioPlayer from "../store/modules/audio-player";
 export default class FilePicker extends Vue {
   private title = "Please choose a song";
   private audioPlayerModule = getModule(AudioPlayer, this.$store);
-  private howl?: Howl;
   private firstLoad = false;
+  private audio?: HTMLAudioElement;
 
   created() {
     this.$store.watch(
       state => state.audioPlayer.isPlaying,
       value => {
         if (value == false) {
-          this.howl?.pause();
+          this.audio?.pause();
         } else {
-          this.howl?.play();
+          this.audio?.play();
         }
       }
     );
@@ -39,14 +39,18 @@ export default class FilePicker extends Vue {
     this.$store.watch(
       state => state.audioPlayer.playbackSpeed,
       value => {
-        this.howl?.rate(value);
+        if (this.audio) {
+          this.audio.playbackRate = value;
+        }
       }
     );
 
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === "setSeek") {
-        const seek = this.howl?.seek() + state.audioPlayer.seek;
-        this.howl?.seek(seek);
+        if (this.audio) {
+          const seek = this.audio.currentTime + state.audioPlayer.seek;
+          this.audio.currentTime = seek;
+        }
       }
     });
   }
@@ -86,14 +90,12 @@ export default class FilePicker extends Vue {
       const base64data = reader.result;
 
       if (base64data) {
-        this.howl = new Howl({
-          src: [base64data?.toString()]
-        });
-
         this.audioPlayerModule.setSource(base64data?.toString());
         this.audioPlayerModule.setIsPlaying(true);
-        this.howl.rate(this.audioPlayerModule.playbackSpeed);
-        this.howl.play();
+
+        this.audio?.pause();
+        this.audio = new Audio(base64data?.toString());
+        this.audio.play();
       }
     };
   }
