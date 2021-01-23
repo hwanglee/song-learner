@@ -5,14 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "@types/howler": "^2.2.1",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "howler": "^2.2.1",
+    "serve-static": "^1.14.1",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
